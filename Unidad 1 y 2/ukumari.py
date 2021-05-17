@@ -1,5 +1,7 @@
-def desperdicio_de_gaseosa(amigo_1:dict,amigo_2:dict,amigo_3:dict,capacidad_boton:float)->str:
+def desperdicio_de_gaseosa(amigo_1:dict,amigo_2:dict,amigo_3:dict,capacidad_boton:float, contador:int=0)->str:
     
+    contador = contador + 1
+
     # Que vaso se rego?
     vaso1 = (amigo_1['capacidad_actual'] + capacidad_boton) - amigo_1['capacidad_vaso'] 
     vaso2 = (amigo_2['capacidad_actual'] + capacidad_boton) - amigo_2['capacidad_vaso'] 
@@ -9,7 +11,7 @@ def desperdicio_de_gaseosa(amigo_1:dict,amigo_2:dict,amigo_3:dict,capacidad_boto
     aux2 = vaso2 > 0
     aux3 = vaso3 > 0
 
-    print(aux1, aux2, aux3)
+    #print(aux1, aux2, aux3)
 
     # Que vaso se rego primero?
     amigo_1['reboso1'] = amigo_1['capacidad_vaso'] - amigo_1['capacidad_actual'] 
@@ -20,34 +22,34 @@ def desperdicio_de_gaseosa(amigo_1:dict,amigo_2:dict,amigo_3:dict,capacidad_boto
 
     if aux1 and aux2 and aux3:
         if amigo_1['reboso1'] == primero:
-            return amigo_1['nombre']
+            return amigo_1['nombre'], contador
         if amigo_2['reboso2'] == primero:
-            return amigo_2['nombre']
+            return amigo_2['nombre'], contador
         if amigo_3['reboso3'] == primero:
-            return amigo_3['nombre']
+            return amigo_3['nombre'], contador
     elif aux1 and aux2:
         if amigo_1['reboso1'] == primero:
-            return amigo_1['nombre']
+            return amigo_1['nombre'], contador
         if amigo_2['reboso2'] == primero:
-            return amigo_2['nombre']
+            return amigo_2['nombre'], contador
     elif aux1 and aux3:
         if amigo_1['reboso1'] == primero:
-            return amigo_1['nombre']
+            return amigo_1['nombre'], contador
         if amigo_3['reboso3'] == primero:
-            return amigo_3['nombre']
+            return amigo_3['nombre'], contador
     elif aux2 and aux3:
         if amigo_1['reboso1'] == primero:
-            return amigo_1['nombre']
+            return amigo_1['nombre'], contador
         if amigo_2['reboso2'] == primero:
-            return amigo_2['nombre']
+            return amigo_2['nombre'], contador
     elif aux1:
-        return amigo_1['nombre']
+        return amigo_1['nombre'], contador
     elif aux2:
-        return amigo_2['nombre']
+        return amigo_2['nombre'], contador
     elif aux3:
-        return amigo_3['nombre']
+        return amigo_3['nombre'], contador
     else:
-        return None
+        return None, contador
 
 
 #------------------------------------
@@ -72,4 +74,12 @@ amigo3 = {
     'capacidad_vaso': 10.0
 }
 
-print(desperdicio_de_gaseosa(amigo1,amigo2,amigo3,servir))
+#print(desperdicio_de_gaseosa(amigo1,amigo2,amigo3,servir))
+
+_, contador = desperdicio_de_gaseosa(amigo1,amigo2,amigo3,servir)
+
+_, contador = desperdicio_de_gaseosa(amigo1,amigo2,amigo3,servir, contador)
+
+_, contador =  desperdicio_de_gaseosa(amigo1,amigo2,amigo3,servir, contador)
+
+print(contador)
