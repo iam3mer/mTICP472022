@@ -18,4 +18,17 @@ def fibonacciModificado(limite:int=100): # los "100" primeros numeros de Fibonac
         n, auxN = auxN, n + auxN
 
 limite = 50
-fibonacciModificado(limite)
+#fibonacciModificado(limite)
+
+def fibonacci(num:int)->None:
+    a, b = 0,1
+    for i in range(num):
+        print(a, end=' ')
+        a, b = b, a + b
+        '''
+        c = a + b
+        a = b
+        B = c
+        '''
+
+fibonacci(30)
