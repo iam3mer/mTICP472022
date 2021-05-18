@@ -1,10 +1,11 @@
-def fibonacci()->None: # Serie de Fibonacci hasta valor menor que 100
+def fibonacci(fibo:int=100)->None: # Serie de Fibonacci hasta valor menor que 100
     num1, num2 = 0, 1
     while num2 < 100:
         print(num2)
         num1, num2 = num2, num1 + num2
 
-#fibonacci()
+valor = 100
+#fibonacci(valor)
 
 
 def fibonacciModificado(limite:int=100): # los "100" primeros numeros de Fibonacci
@@ -16,6 +17,5 @@ def fibonacciModificado(limite:int=100): # los "100" primeros numeros de Fibonac
         print(n)
         n, auxN = auxN, n + auxN
 
-num = 0
 limite = 50
 fibonacciModificado(limite)
