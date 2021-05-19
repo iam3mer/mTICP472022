@@ -18,5 +18,7 @@
 #palabras = frase.split()
 #print(palabras)
 #Contar la longitud de cada una de las palabras
-#for palabra in palabras:
-#    print(f'La palabra "{palabra}" tiene una longitud de {len(palabra)}')
+for palabra in palabras:
+    print(f'La palabra "{palabra}" tiene una longitud de {len(palabra)}')
+else:
+    print("Siempre se ejecuta")
