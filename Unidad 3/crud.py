@@ -35,6 +35,17 @@ dbProductos = {
     }
 }
 
+categorias = ['Nuevos', 'Estrella', 'Temporada', 'Descuento', 'Alimentos', 'Otros']
+marcas = ['Pepsi', 'Acer', 'Pietran', 'LG']
+
+def comprobarSN(msj:str)->bool:
+    while True:
+        entrada = input(msj)
+        if entrada in ['S', 's', 'Si', 'si', 'SI', 'Sí', 'sí']:
+            return True
+        elif entrada in ['N', 'n', 'No', 'no', 'NO']:
+            return False
+
 
 def mayorQueCero(msjI:str,msjO:str)->int:
     while True:
@@ -72,8 +83,6 @@ def comprobarFecha(msj:str)->str:
 
 # CREATE
 def agregarProducto(db:dict)->dict:
-    categorias = ['Nuevos', 'Estrella', 'Temporada', 'Descuento', 'Alimentos', 'Otros']
-    marcas = ['Pepsi', 'Acer', 'Pietran', 'LG']
 
     print('Se va ha agregar un nuevo producto.')
 
@@ -135,8 +144,76 @@ def mostrarInfoProducto(db:dict)->None:
         print(f'Fecha de vencimiento {db[producto]["comestible"]["fechaVencimiento"]}')
     print(f'Unidades en inventario: {db[producto]["inventario"]}')
 
-#baseProductos = agregarProducto(dbProductos)
-#baseProductos = agregarProducto(baseProductos)
-#baseProductos = agregarProducto(baseProductos)
 
-mostrarInfoProducto(dbProductos)
+#UPDATE
+def actualizarProducto(db:dict)->dict:
+    print('Actualizar producto')
+    productos = list(db.keys()) # Consulto las llaves y las almaceno en una lista 
+    msj = 'Ingrese el nombre del producto a actualizar: '
+    producto = verificarElemento(productos, msj)
+
+    msj = 'Desea actualizar la categoria? [S/s] Sí [N/n] No '
+    if comprobarSN(msj) == True:
+        msj = 'Ingrese la categoria: '
+        categoria = verificarElemento(categorias, msj)
+        db[producto]['categoria'] = categoria
+    
+    msj = 'Desea actualizar la marca? [S/s] Sí [N/n] No '
+    if comprobarSN(msj):
+        msj = 'Ingrese la marca: '
+        marca = verificarElemento(marcas, msj)
+        db[producto]['marca'] = marca
+
+    msj = 'Desea actualizar el precio? [S/s] Sí [N/n] No '
+    if comprobarSN(msj):
+        msj = 'Ingrese el precio: '
+        precio = mayorQueCero(msj, 'El precio debe ser mayor que 0.')
+        db[producto]['precio'] = precio
+
+    msj = 'Desea actualizar el inventario? [S/s] Sí [N/n] No '
+    if comprobarSN(msj):
+        msj = 'Ingrese las unidades: '
+        inventario = mayorQueCero(msj, 'Debe ingresar almenos una unidad.')
+        db[producto]['inventario'] = inventario
+
+    return db
+    
+
+# DELETE
+def eliminarProducto(db:dict)->dict:
+    print('Eliminar producto')
+    productos = list(db.keys()) # Consulto las llaves y las almaceno en una lista 
+    msj = 'Ingrese el nombre del producto a eliminar: '
+    producto = verificarElemento(productos, msj)
+
+    db.pop(producto)
+
+    print(f'El producto {producto} ha sido eliminado.')
+
+    return db
+
+
+def menu(dbProductos:dict)->None:
+    while True:
+        print('---------- CRUD ----------')
+        print('--------------------------')
+        print('-1- Agregar producto.')
+        print('-2- Actualizar producto.')
+        print('-3- Mostrar iformación de producto.')
+        print('-4- Eliminar producto.')
+        print('-5- Salir.')
+
+        opcion = input('Ingrese una opción: ')
+
+        if opcion == '1':
+            dbProductos = agregarProducto(dbProductos)
+        elif opcion == '2':
+            dbProductos = actualizarProducto(dbProductos)
+        elif opcion == '3':
+            mostrarInfoProducto(dbProductos)
+        elif opcion == '4':
+            dbProductos = eliminarProducto(dbProductos)
+        elif opcion == '5':
+            break
+
+menu(dbProductos)
