@@ -90,3 +90,16 @@ elemento = profesionales.pop('Erika')
 
 profesionales.clear()
 #print(profesionales)
+
+db = {
+    'Andres': {
+        'contrato1': 50000000,
+        'contrato2': 70000000
+    }
+}
+
+abono = 30000000
+valor = db['Andres']['contrato2'] - abono
+db['Andres']['contrato2'] = valor
+
+print(db)
