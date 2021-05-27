@@ -1,3 +1,6 @@
+from pprint import pprint as pp
+from random import randint, randrange, random, uniform
+
 # Estructuras por extensión
 
 numeros = [1,5,3,4,8,2,5,7]
@@ -124,4 +127,99 @@ def tablas(num:int)->dict:
 #print(tablas(10))
 
 tablasDict = {f'Tabla del {n}': [n*z for z in range(2,10)] for n in range(2,11)}
-print(tablasDict)
+#print(tablasDict)
+#pp(tablasDict)
+
+'''
+# Generar numeros aleatorios
+# Genera un numero entero de forma aleatoria entre los limites dados
+for num in range(10):
+    print(randint(10,100), end=' ')
+print()
+
+aleatorioRandint = [randint(10,100) for num in range(10)]
+print(aleatorioRandint)
+
+# Genera un numero entero de forma aleatoria entre los limites dados
+# Opcionalmente se puede indicar un step
+for num in range(10):
+    print(randrange(10,100,20), end=' ')
+print()
+
+aleatorioRandrange = [randrange(10,100,20) for num in range(10)]
+print(aleatorioRandrange)
+
+# Genera decimales entre 0 y 1 (no se incluye)
+for num in range(10):
+    print(random(), end=' ')
+print()
+
+aleatorioRandom = [random() for num in range(10)]
+print(aleatorioRandom)
+
+# Genera un numero decimal de forma aleatoria entre un punto inicial y uno final
+for num in range(10):
+    print(uniform(10,100), end=' ')
+
+aleatorioUniform= [uniform(10,100) for num in range(10)]
+print(aleatorioUniform)
+'''
+
+# ciudadesDict = {(a,b): 85, (a,c): 71, ...}
+listaCiudades = ['a','b','c','d','e','f','g']
+
+# Generar todos los arcos para la lista
+arcos = {}
+for i in listaCiudades:
+    auxLista = []
+    for j in listaCiudades:
+        if j != i:
+            auxLista.append((i,j))
+    arcos[i] = auxLista
+#pp(arcos)
+
+arcos = {i: [(i, j) for j in listaCiudades if j != i] for i in listaCiudades}
+#pp(arcos)
+
+# Obtener una lista con todos los arcos por ciudades
+arcos = list(arcos.values())
+#print(arcos)
+
+# Obtener los arcos "unicos"
+auxArcos = []
+i = 0
+def seleccionarArcos(i:int,auxArcos:list)->list:
+    for fila in arcos:
+        aux = fila[i:len(fila)]
+        if aux != []:
+            auxArcos.append(aux)
+        i += 1
+    return auxArcos
+
+arcos = seleccionarArcos(i,auxArcos)
+
+# Cuantas distancias se deben generar?
+numDistancias = 0
+for lista in arcos:
+    numDistancias += len(lista)
+#print(numDistancias)
+
+
+# Lista con los arcos 
+auxArcos = []
+for lista in arcos:
+    for par in lista:
+        auxArcos.append(par)
+#print(len(auxArcos))
+
+auxArcos = [par for lista in arcos for par in lista]
+#print(auxArcos)
+
+# Generar las distancias
+numDistancias = len(auxArcos)
+distancias = []
+for km in range(numDistancias):
+    distancias.append(randrange(60,800,40))
+print(distancias)
+
+# Añadir a los arcos sus distancias
