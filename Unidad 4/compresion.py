@@ -215,11 +215,29 @@ for lista in arcos:
 auxArcos = [par for lista in arcos for par in lista]
 #print(auxArcos)
 
+# {(a,b):40, (b,a):40}
+auxArcos2 = [(tupla[1], tupla[0]) for tupla in auxArcos]
+#print(auxArcos2)
+
 # Generar las distancias
 numDistancias = len(auxArcos)
 distancias = []
 for km in range(numDistancias):
     distancias.append(randrange(60,800,40))
-print(distancias)
+#print(distancias)
 
 # Añadir a los arcos sus distancias
+ciudadesDic = {}
+for posicion in  range(numDistancias):
+   ciudadesDic[auxArcos[posicion]] = distancias[posicion]
+   ciudadesDic[auxArcos2[posicion]] = distancias[posicion]
+#pp(ciudadesDic)
+
+# Segunda opción
+ciudadesDic = {}
+for arco in auxArcos:
+    dis = distancias[auxArcos.index(arco)]
+    ciudadesDic[arco] = dis
+    ciudadesDic[arco[::-1]] = dis
+pp(ciudadesDic)
+
