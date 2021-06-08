@@ -1,0 +1,19 @@
+{
+    "Tripulantes": [
+        {
+            "nombre": "Nelsi",
+            "apellido": "Miramag",
+            "edad": 20,
+            "notas": [
+                4.8,
+                5
+            ]
+        },
+        {
+            "nombre": "Julian",
+            "apellido": "Villanueva",
+            "edad": 22,
+            "notas": 4.5
+        }
+    ]
+}
