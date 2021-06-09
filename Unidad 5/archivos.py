@@ -105,4 +105,11 @@ with open('infoTripulantes.json', 'w') as fichero:
 
 with open('infoTripulantes.json') as fichero:
     datosJSON = json.load(fichero)
-    pp(datosJSON)
+    # pp(datosJSON)
+
+# Consumir API
+import requests
+
+respuesta = requests.get('http://ip-api.com/json/208.200.108.203')
+dataJSON = json.loads(respuesta.content)
+pp(dataJSON)
