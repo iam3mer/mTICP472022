@@ -2,8 +2,6 @@ package xyz.iam3mer.ejerciciosp47.baorjs;
 
 import java.util.Scanner;
 
-import javax.lang.model.util.ElementScanner6;
-
 public class Ejercicio14 {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);

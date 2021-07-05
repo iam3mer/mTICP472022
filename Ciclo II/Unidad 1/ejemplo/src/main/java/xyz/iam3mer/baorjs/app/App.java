@@ -2,8 +2,6 @@ package xyz.iam3mer.baorjs.app;
 
 import java.util.Scanner;
 
-import jdk.tools.jlink.internal.SymLinkResourcePoolEntry;
-
 /**
  * Hello world!
  *
