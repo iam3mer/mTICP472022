@@ -28,7 +28,7 @@ public class Ejercicio1
 
         int numeroSuerte = dia + mes + anio;
 
-        int len = String.valueOf(numeroSuerte).length();
+        // int len = String.valueOf(numeroSuerte).length();
 
         int aux = 0;
         int digito = 0;
