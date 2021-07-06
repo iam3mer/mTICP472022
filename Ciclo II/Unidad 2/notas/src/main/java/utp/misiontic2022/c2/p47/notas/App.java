@@ -12,22 +12,16 @@ public class App
     {
 
         Double auxNota = Double.parseDouble(args[1]);
-        Double promedio = 0.0;
-        Integer indNota = 1;
+        Double promedio = auxNota;
 
         for (int i = 2; i < args.length; i++) {
+            promedio += Double.parseDouble(args[i]);
             if (Double.parseDouble(args[i]) < auxNota) {
                 auxNota = Double.parseDouble(args[i]);
-                indNota = i;
             }
         }
 
-        args[indNota] = "0";
-
-        for (int i = 1; i < args.length; i++) {
-            promedio += Double.parseDouble(args[i]);
-        }
-
+        promedio -= auxNota;
         promedio /= args.length -2;
         promedio *= 0.05;
 
