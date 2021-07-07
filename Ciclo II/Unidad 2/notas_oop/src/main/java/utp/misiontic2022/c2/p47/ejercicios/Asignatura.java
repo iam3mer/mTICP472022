@@ -1,7 +1,6 @@
-package utp.misiontic2022.c2.p47.notas_oop;
+package utp.misiontic2022.c2.p47.ejercicios;
 
 public class Asignatura {
-
     // Atributos
     private String nombreAsignatura;
     private Nota nota1;
@@ -130,9 +129,4 @@ public class Asignatura {
     public void setNotaBaja(Nota notaBaja) {
         this.notaBaja = notaBaja;
     }
-
-    
-    
 }
-
-    

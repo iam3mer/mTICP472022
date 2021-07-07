@@ -1,4 +1,4 @@
-package utp.misiontic2022.c2.p47.notas_oop;
+package utp.misiontic2022.c2.p47.ejercicios;
 
 import static org.junit.Assert.assertTrue;
 
