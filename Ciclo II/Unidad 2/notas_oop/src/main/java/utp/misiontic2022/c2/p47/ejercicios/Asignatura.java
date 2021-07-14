@@ -68,10 +68,18 @@ public class Asignatura {
 
     public void calcularPromedio() {
         this.encontrarNotaBaja();
+        mostrarAsignatura();
 
         this.promedio100 = (nota1.getEscala100() + nota2.getEscala100()
                         + nota3.getEscala100() + nota4.getEscala100()
                         + nota5.getEscala100() - notaBaja.getEscala100()) / 4;
+
+        Nota promedio = new Nota(promedio100);
+        //promedio.mostrarNota();
+        System.out.println("------Promedio------");
+        System.out.printf("Nota en escala 100: %d\n", promedio.getEscala100());
+        System.out.printf("Nota en escala 5: %.2f\n", promedio.getEscala5());
+        System.out.printf("Nota en escala cualitativa: %s\n", promedio.getEscalaCualitativa());
     }
 
     public String getNombreAsignatura() {
