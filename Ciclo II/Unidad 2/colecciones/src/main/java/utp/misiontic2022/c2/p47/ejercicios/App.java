@@ -3,8 +3,11 @@ package utp.misiontic2022.c2.p47.ejercicios;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Hello world!
@@ -15,7 +18,8 @@ public class App
     public static void main( String[] args )
     {
         //listas();
-        conjuntos();
+        //conjuntos();
+        mapas();
     }
 
     public static void listas(){
@@ -84,8 +88,38 @@ public class App
         conjuntoL.add(34);
         conjuntoL.add(563);
 
+        conjuntoL.remove(34);
+
         System.out.println(conjuntoL);
 
         System.out.println("Tamaño del conjunto: "+conjunto.size());
+    }
+
+    public static void mapas(){
+
+        Map<String, Object> mapa = new LinkedHashMap<>();
+
+        mapa.put("key", "value");
+        mapa.put("Asignatura", "Programación");
+        mapa.put("Nota", 2.5);
+        mapa.put("Tripulante", "Francisco");
+
+        System.out.println(mapa);
+
+        System.out.println(mapa.containsKey("Nota"));
+        System.out.println(mapa.containsValue(5.0));
+
+        mapa.remove("key");
+        System.out.println(mapa);
+
+        mapa.put("Nota", 3.0);
+
+        System.out.println(mapa.keySet());
+
+        Set<String> llaves = mapa.keySet();
+        for (String llave : llaves) {
+            System.out.println(mapa.get(llave));
+        }
+
     }
 }
