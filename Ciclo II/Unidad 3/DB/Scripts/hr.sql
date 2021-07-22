@@ -118,6 +118,14 @@ SELECT last_name , job_title, salary
 from employees e
 natural join jobs;
 
+SELECT last_name, job_title, salary
+from employees e 
+join jobs j on (e.job_id = j.job_id);
+
+SELECT  last_name, job_title, salary
+from employees e 
+join jobs j 
+using (job_id);
 
 SELECT job_title, count(e.job_id)
 from employees e
@@ -132,3 +140,106 @@ SELECT department_name, COUNT(e.department_id)
 from employees e, departments d
 WHERE d.department_id = e.department_id
 GROUP BY e.department_id;
+
+SELECT last_name, d.department_id, department_name
+from employees e 
+left outer join departments d on (e.department_id = d.department_id);
+
+SELECT last_name, d.department_id, department_name
+from  departments d
+left outer join employees e on (e.department_id = d.department_id);
+
+SELECT last_name, department_name
+from employees e 
+cross join departments d ;
+
+select location_id, street_address, city, state_province, country_name
+from locations l 
+natural join countries c ;
+
+select location_id, street_address, city, state_province, country_name
+from locations l 
+join countries c on (l.country_id = c.country_id);
+
+select location_id, street_address, city, state_province, country_name
+from locations l 
+join countries c using (country_id);
+
+SELECT last_name, d.department_id, department_name
+from employees e 
+join departments d using (department_id);
+
+SELECT last_name
+from employees e 
+WHERE job_id in (17,18,19);
+
+SELECT last_name
+from employees e 
+where job_id in (
+	SELECT DISTINCT job_id 
+	from employees e2 
+	WHERE department_id = 5
+);
+
+SELECT round(salary_avg, 2)
+from (
+	SELECT AVG(salary) salary_avg
+	from employees e 
+	group by department_id );
+
+SELECT last_name, salary
+from employees e 
+where manager_id = (
+	SELECT employee_id 
+	from employees e2 
+	where last_name = 'King'
+);
+
+SELECT department_id, last_name, job_id
+from employees e 
+where department_id = (
+	SELECT department_id 
+	from departments d 
+	where department_name = 'Executive'
+);
+
+SELECT last_name
+from employees e 
+union
+select job_title
+from jobs j ;
+
+SELECT job_id
+from employees e 
+intersect
+select job_id
+from jobs j ;
+
+INSERT into jobs (job_id,job_title,min_salary,max_salary)
+values (20, 'New Job', 1000, 3000);
+
+INSERT into job_grades (lowest_sal,highest_sal)
+values (40001,60000);
+
+insert into jobs 
+values (21, 'Other New Salary', 2500, 5000);
+
+CREATE TABLE sales_reps (
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	name TEXT,
+	salary REAL
+);
+
+INSERT into sales_reps 
+select employee_id, first_name||' '||last_name, salary 
+from employees 
+WHERE job_id in (
+	SELECT job_id
+	from jobs 
+	where job_title like '%Rep%'
+);
+
+
+
+
+
