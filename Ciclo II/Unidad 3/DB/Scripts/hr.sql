@@ -239,7 +239,8 @@ WHERE job_id in (
 	where job_title like '%Rep%'
 );
 
-
+delete from sales_reps 
+WHERE id = 202;
 
 
 
