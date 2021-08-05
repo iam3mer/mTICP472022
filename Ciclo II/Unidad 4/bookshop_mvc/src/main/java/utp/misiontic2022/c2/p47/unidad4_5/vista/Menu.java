@@ -3,9 +3,11 @@ package utp.misiontic2022.c2.p47.unidad4_5.vista;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 
 import utp.misiontic2022.c2.p47.unidad4_5.controlador.Controlador;
 import utp.misiontic2022.c2.p47.unidad4_5.modelo.vo.Book;
+import utp.misiontic2022.c2.p47.unidad4_5.modelo.vo.Stock;
 
 public class Menu {
     
@@ -35,13 +37,13 @@ public class Menu {
                         create();
                         break;
                     case "2":
-                        //read();
+                        read();
                         break;
                     case "3":
-                        //update();
+                        update();
                         break;
                     case "4":
-                        //delete();
+                        delete();
                         break;
                     case "5":
                         loop = false;
@@ -56,22 +58,94 @@ public class Menu {
         }
     }
 
-    private static void create() throws IOException {
+    private static void create() {
         System.out.println("Creación de libro.");
 
-        System.out.println("Ingrese el titulo: ");
-        String title = input.readLine();
-        System.out.println("Ingrese el isbn: ");
-        String isbn = input.readLine();
-        System.out.println("Ingrese el año de publicación: ");
-        int year = Integer.valueOf(input.readLine());
+        try {
+            System.out.println("Ingrese el titulo: ");
+            String title = input.readLine();
+            System.out.println("Ingrese el isbn: ");
+            String isbn = input.readLine();
+            System.out.println("Ingrese el año de publicación: ");
+            int year = Integer.valueOf(input.readLine());
+            System.out.print("Ingrese las unidades a añadir al stock: ");
+            int amount = Integer.valueOf(input.readLine());
 
-        Book book = controlador.createBook(title, isbn, year);
+            Book book = controlador.createBook(title, isbn, year);
 
-        if (book != null) {
-            System.out.println("El libro se almaceno correctamente!");
-        } else {
-            System.out.println("El libro ya existe en la base de datos.");
+            if (book != null) {
+                controlador.createStock(isbn, amount);
+                System.out.println("El libro se almaceno correctamente!");
+            } else {
+                System.out.println("El libro ya existe en la base de datos.");
+            }
+        } catch (IOException | SQLException e) {
+            System.err.println(e);
         }
     }
+
+    public static void read() {
+        System.out.println("Leer libro.");
+
+        try {
+            System.out.print("Ingrese el isbn del libro a consultar: ");
+            String isbn = input.readLine();
+
+            Book book = controlador.readBook(isbn);
+
+            if (book != null) {
+                System.out.println(book);
+            } else {
+                System.out.printf("El libro con isbn %s no se encontro.", isbn);
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+
+    public static void update() {
+        System.out.println("Actualizar libro.");
+
+        try {
+            System.out.print("Ingrese el isbn del libro a actualizar: ");
+            String isbn = input.readLine();
+            System.out.print("Ingrese el titulo del libro: ");
+            String title = input.readLine();
+            System.out.print("Ingrese el año de publicación del libro: ");
+            int year = Integer.valueOf(input.readLine());
+
+            boolean band = controlador.updateBook(isbn, title, year);
+
+            if (band) {
+                System.out.printf("El libro con isbn %s se actualizo!\n", isbn);
+            } else {
+                System.out.println("No se puedo actualizar el libro.");
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+
+    public static void delete() {
+        System.out.println("Eliminar libro.");
+
+        try {
+            System.out.print("Ingrese el isbn del libro a eliminar: ");
+            String isbn = input.readLine();
+
+            boolean band = controlador.deleteBook(isbn);
+
+            if (band) {
+                System.out.printf("Libro con isbn %s fue eliminado!\n",isbn);
+            } else {
+                System.out.println("No se puede elminar el libro.");
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
 }

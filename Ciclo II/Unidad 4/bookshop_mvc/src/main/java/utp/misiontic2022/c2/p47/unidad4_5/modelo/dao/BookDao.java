@@ -47,4 +47,60 @@ public class BookDao {
 
         return book;
     }
+
+    public Book read(String isbn) throws SQLException {
+        Book book = null;
+        String sql = "SELECT * FROM book WHERE isbn ='"+isbn+"';";
+
+        try (
+            Connection conn = JDBCUtilities.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+        ) {
+            if (rs.next()) {
+                book = new Book();
+
+                book.setId(rs.getInt("id"));
+                book.setTitle(rs.getString("title"));
+                book.setIsbn(rs.getString("isbn"));
+                book.setYear(rs.getInt("year"));
+            }
+        }
+        return book;
+    }
+
+    public boolean update(Book book) throws SQLException {
+        boolean band = false;
+
+        String sql = "UPDATE book SET title = '"+book.getTitle()+"', year = "+book.getYear()+" WHERE isbn = '"+book.getIsbn()+"';";
+
+        try (
+            Connection conn = JDBCUtilities.getConnection();
+            Statement stmt = conn.createStatement();
+        ) {
+            int aux = stmt.executeUpdate(sql);
+            if (aux > 0) {
+                band = true;
+            }
+        } 
+        return band;
+    }
+
+    public boolean delete(String isbn) throws SQLException {
+        boolean band = false;
+
+        String sql = "DELETE FROM book WHERE isbn = '"+isbn+"';";
+        
+        try (
+            Connection conn = JDBCUtilities.getConnection();
+            Statement stmt = conn.createStatement();
+        ) {
+            int aux = stmt.executeUpdate(sql);
+            if (aux > 0) {
+                band = true;
+            }
+        } 
+
+        return band;
+    }
 }

@@ -1,0 +1,1 @@
+SELECT count() FROM sales s JOIN book b WHERE s.id_book = b.id AND b.isbn = 'fdsg8df89g7df987g'; 

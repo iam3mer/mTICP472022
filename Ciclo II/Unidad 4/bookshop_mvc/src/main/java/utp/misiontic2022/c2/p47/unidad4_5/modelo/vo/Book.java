@@ -5,6 +5,7 @@ public class Book {
     private String title;
     private String isbn;
     private int year;
+    private int id;
 
     public Book(){}
     
@@ -38,4 +39,16 @@ public class Book {
         this.year = year;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return title+" "+"("+isbn+" "+year+")";
+    }
 }
