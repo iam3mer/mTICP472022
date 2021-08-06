@@ -9,18 +9,24 @@ import utp.misiontic2022.c2.p47.unidad4_5.modelo.dao.StockDao;
 import utp.misiontic2022.c2.p47.unidad4_5.modelo.vo.Sale;
 import utp.misiontic2022.c2.p47.unidad4_5.modelo.dao.SaleDao;
 
+import utp.misiontic2022.c2.p47.unidad4_5.modelo.vo.BookStock;
+import utp.misiontic2022.c2.p47.unidad4_5.modelo.dao.BookStockDao;
+
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Controlador {
 
     private final BookDao bookDao;
     private final StockDao stockDao;
     private final SaleDao saleDao;
+    private final BookStockDao bookstockDao;
 
     public Controlador() {
         this.bookDao = new BookDao();
         this.stockDao = new StockDao();
         this.saleDao = new SaleDao();
+        this.bookstockDao = new BookStockDao();
     }
 
     public Book createBook(String title, String isbn, int year) throws SQLException {
@@ -92,6 +98,29 @@ public class Controlador {
         stock.setAmount(amount);
 
         stockDao.save(stock);
+    }
+
+    public ArrayList<BookStock> listarBS () throws SQLException {
+        return bookstockDao.consultarBS();
+    }
+
+    public boolean venderLibro(String isbn, int unidadesVenta) throws SQLException {
+        boolean venta = false;
+
+        int id_book = bookDao.validarISBN(isbn);
+        if (id_book > 0) {
+            //int id_book = bookDao.read(isbn).getId();
+            int stock = stockDao.consultarStock(id_book);
+
+            if (stock > unidadesVenta) {
+                int auxV = saleDao.vender(id_book, unidadesVenta);
+                if (auxV > 0) {
+                    stockDao.update(id_book, unidadesVenta);
+                }
+                venta = true;
+            }
+        }
+        return venta;
     }
     
 }

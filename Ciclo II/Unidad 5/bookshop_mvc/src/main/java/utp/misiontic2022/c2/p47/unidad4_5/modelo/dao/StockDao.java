@@ -2,6 +2,7 @@ package utp.misiontic2022.c2.p47.unidad4_5.modelo.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -34,5 +35,35 @@ public class StockDao {
         ){
             stmt.executeUpdate(sql);
         } 
+    }
+
+    public void update(int id_book, int unidadesVenta) throws SQLException {
+
+        int amountUp = consultarStock(id_book) - unidadesVenta;
+
+        String sql = "UPDATE stock SET amount = "+amountUp+" WHERE id_book = "+id_book+";";
+
+        try (
+            Connection conn = JDBCUtilities.getConnection();
+            Statement stmt = conn.createStatement();
+        ) {
+            stmt.executeUpdate(sql);
+        } 
+    }
+
+    public int consultarStock(int id_book) throws SQLException {
+        int amount = 0;
+        String sql = "SELECT amount FROM stock WHERE id_book = "+id_book+";";
+
+        try (
+            Connection conn = JDBCUtilities.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+        ) {
+            if (rs.next()) {
+                amount = rs.getInt("amount");
+            }
+        }
+        return amount;
     }
 }

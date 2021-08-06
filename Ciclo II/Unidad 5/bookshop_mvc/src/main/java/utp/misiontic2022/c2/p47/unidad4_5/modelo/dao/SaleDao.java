@@ -27,4 +27,15 @@ public class SaleDao {
         } 
         return band;
     }
+
+    public int vender(int id_book, int unidadesVenta) throws SQLException {
+        String sql = "INSERT INTO sales VALUES (DATETIME('now'), "+id_book+", "+unidadesVenta+");";
+
+        try (
+            Connection conn = JDBCUtilities.getConnection();
+            Statement stmt = conn.createStatement();
+        ) {
+            return stmt.executeUpdate(sql);
+        } 
+    }
 }

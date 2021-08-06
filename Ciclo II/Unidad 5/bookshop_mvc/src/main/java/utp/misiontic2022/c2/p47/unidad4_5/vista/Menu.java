@@ -4,9 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import utp.misiontic2022.c2.p47.unidad4_5.controlador.Controlador;
 import utp.misiontic2022.c2.p47.unidad4_5.modelo.vo.Book;
+import utp.misiontic2022.c2.p47.unidad4_5.modelo.vo.BookStock;
 import utp.misiontic2022.c2.p47.unidad4_5.modelo.vo.Stock;
 
 public class Menu {
@@ -27,8 +29,9 @@ public class Menu {
             System.out.println("2. Leer libro");
             System.out.println("3. Actualizar libro");
             System.out.println("4. Eliminar libro");
-            System.out.println("5. Salir");
-            System.out.print("Ingrese una opciòn: ");
+            System.out.println("5. Vender libro");
+            System.out.println("6. Salir");
+            System.out.print("Ingrese una opción: ");
 
             try {
                 String opcion = input.readLine();
@@ -46,6 +49,9 @@ public class Menu {
                         delete();
                         break;
                     case "5":
+                        sale();
+                        break;
+                    case "6":
                         loop = false;
                         break;
                     default:
@@ -145,6 +151,37 @@ public class Menu {
 
         } catch (Exception e) {
             System.out.println(e);
+        }
+    }
+
+    public static void sale() {
+        System.out.println("Venta de libro.");
+
+        try {
+            ArrayList<BookStock> registrosBS = controlador.listarBS();
+            for (BookStock bookStock : registrosBS) {
+                System.out.printf("%s %s %d (%d)\n",
+                    bookStock.getIsbn(),
+                    bookStock.getTitle(),
+                    bookStock.getYear(),
+                    bookStock.getAmount()
+                );
+            }
+
+            System.out.print("Ingrese el isbn del libro a comprar: ");
+            String isbn = input.readLine();
+            System.out.print("Ingrese el numero de unidades a comprar: ");
+            int unidadesVenta = Integer.valueOf(input.readLine());
+
+            boolean venta = controlador.venderLibro(isbn, unidadesVenta);
+
+            if (venta) {
+                System.out.printf("Se vendieron %d unidades de %s\n",unidadesVenta,isbn);
+            } else {
+                System.out.printf("No hay suficientes unidades del libro %s para realizar la venta!\n",isbn);
+            }
+        } catch (Exception e) {
+            System.err.println(e);
         }
     }
 
