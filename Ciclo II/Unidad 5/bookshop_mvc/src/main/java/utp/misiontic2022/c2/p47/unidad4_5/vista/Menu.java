@@ -30,7 +30,8 @@ public class Menu {
             System.out.println("3. Actualizar libro");
             System.out.println("4. Eliminar libro");
             System.out.println("5. Vender libro");
-            System.out.println("6. Salir");
+            System.out.println("6. Listar libros");
+            System.out.println("7. Salir");
             System.out.print("Ingrese una opción: ");
 
             try {
@@ -52,6 +53,9 @@ public class Menu {
                         sale();
                         break;
                     case "6":
+                        listar();
+                        break;
+                    case "7":
                         loop = false;
                         break;
                     default:
@@ -121,9 +125,10 @@ public class Menu {
             System.out.print("Ingrese el año de publicación del libro: ");
             int year = Integer.valueOf(input.readLine());
 
-            boolean band = controlador.updateBook(isbn, title, year);
+            //boolean band = controlador.updateBook(isbn, title, year);
+            Book book = controlador.updateBook(isbn, title, year);
 
-            if (band) {
+            if (book != null) {
                 System.out.printf("El libro con isbn %s se actualizo!\n", isbn);
             } else {
                 System.out.println("No se puedo actualizar el libro.");
@@ -179,6 +184,24 @@ public class Menu {
                 System.out.printf("Se vendieron %d unidades de %s\n",unidadesVenta,isbn);
             } else {
                 System.out.printf("No hay suficientes unidades del libro %s para realizar la venta!\n",isbn);
+            }
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+    
+    public static void listar() {
+        System.out.println("Lista de libros.");
+
+        try {
+            ArrayList<Book> registros = controlador.findAllBooks();
+            for (Book book : registros) {
+                System.out.printf("%d %s %s (%d)\n",
+                    book.getId(),
+                    book.getIsbn(),
+                    book.getTitle(),
+                    book.getYear()
+                );
             }
         } catch (Exception e) {
             System.err.println(e);

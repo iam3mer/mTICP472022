@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import utp.misiontic2022.c2.p47.unidad4_5.modelo.vo.Book;
 import utp.misiontic2022.c2.p47.unidad4_5.util.JDBCUtilities;
@@ -35,13 +36,21 @@ public class BookDao {
 
         try (
             Connection conn = JDBCUtilities.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(psql);
+            PreparedStatement pstmt = conn.prepareStatement(psql, Statement.RETURN_GENERATED_KEYS);
         ) {
             pstmt.setString(1, book.getTitle());
             pstmt.setString(2, book.getIsbn());
             pstmt.setInt(3, book.getYear());
 
             pstmt.executeUpdate();
+            
+            try (
+                    ResultSet gK = pstmt.getGeneratedKeys();
+                ){
+                if (gK.next()) {
+                    book.setId(gK.getInt(1));
+                }
+            } 
             
         } 
 
@@ -69,8 +78,33 @@ public class BookDao {
         return book;
     }
 
-    public boolean update(Book book) throws SQLException {
-        boolean band = false;
+    public ArrayList<Book> allBooks() throws SQLException{
+        ArrayList<Book> books = new ArrayList<>();
+        Book book = null;
+
+        String sql = "SELECT * FROM book;";
+
+        try (
+            Connection conn = JDBCUtilities.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+        ) {
+            while (rs.next()) {
+                book = new Book();
+
+                book.setId(rs.getInt("id"));
+                book.setTitle(rs.getString("title"));
+                book.setIsbn(rs.getString("isbn"));
+                book.setYear(rs.getInt("year"));
+
+                books.add(book);
+            }
+        } 
+        return books;
+    }
+
+    public Book update(Book book) throws SQLException {
+        //boolean band = false;
 
         String sql = "UPDATE book SET title = '"+book.getTitle()+"', year = "+book.getYear()+" WHERE isbn = '"+book.getIsbn()+"';";
 
@@ -79,11 +113,13 @@ public class BookDao {
             Statement stmt = conn.createStatement();
         ) {
             int aux = stmt.executeUpdate(sql);
+            /*
             if (aux > 0) {
                 band = true;
             }
+            */
         } 
-        return band;
+        return book;
     }
 
     public boolean delete(String isbn) throws SQLException {

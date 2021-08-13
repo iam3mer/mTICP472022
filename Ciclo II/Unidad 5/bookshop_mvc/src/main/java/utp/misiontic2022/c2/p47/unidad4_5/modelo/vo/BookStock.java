@@ -1,12 +1,21 @@
 package utp.misiontic2022.c2.p47.unidad4_5.modelo.vo;
 
 public class BookStock {
+    private Integer id;
     private String isbn;
     private String title;
     private Integer year;
     private Integer amount;
     
     public BookStock() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getIsbn() {

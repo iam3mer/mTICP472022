@@ -73,17 +73,22 @@ public class Controlador {
         return delete;
     }
 
-    public boolean updateBook(String isbn, String title, int year) throws SQLException {
-        boolean band;
+    public Book updateBook(String isbn, String title, int year) throws SQLException {
+        //boolean band;
         Book book = new Book();
 
         book.setTitle(title);
         book.setIsbn(isbn);
         book.setYear(year);
 
-        band = bookDao.update(book);
+        //band = bookDao.update(book);
+        bookDao.update(book);
 
-        return band;
+        return book;
+    }
+
+    public ArrayList<Book> findAllBooks() throws SQLException {
+        return bookDao.allBooks();
     }
 
     public void createStock(String isbn, int amount) throws SQLException {
@@ -102,6 +107,10 @@ public class Controlador {
 
     public ArrayList<BookStock> listarBS () throws SQLException {
         return bookstockDao.consultarBS();
+    }
+    
+    public ArrayList<BookStock> listarTodosBS () throws SQLException {
+        return bookstockDao.consultarTodosBS();
     }
 
     public boolean venderLibro(String isbn, int unidadesVenta) throws SQLException {

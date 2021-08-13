@@ -5,10 +5,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>utp.misiontic2022.c2.p47.unidad4_5</groupId>
-  <artifactId>bookshop_mvc</artifactId>
+  <artifactId>bookshop_mvc_gui</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>bookshop_mvc</name>
+  <name>bookshop_mvc_gui_47</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 

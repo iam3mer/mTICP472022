@@ -1,5 +1,6 @@
 package utp.misiontic2022.c2.p47.unidad4_5;
 
+import utp.misiontic2022.c2.p47.unidad4_5.vista.Bookshop_GUI;
 import utp.misiontic2022.c2.p47.unidad4_5.vista.Menu;
 
 /**
@@ -10,6 +11,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        Menu.iniciar();
+        //Menu.iniciar();
+        Bookshop_GUI.main(args);
     }
 }
