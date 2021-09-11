@@ -1,0 +1,37 @@
+.container {
+    display: grid;
+    background: aqua;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 30px 30px 30px 30px;
+    gap: 10px 5px;
+    grid-template-areas: 
+        "header header header header"
+        "main main . sidebar"
+        "footer footer footer footer";
+}
+
+.item {
+    background: aqua;
+}
+
+.item-1 {
+    grid-area: header;
+    align-self: stretch;
+}
+
+.item-2 {
+    grid-area: main;
+    place-self: center stretch;
+}
+
+.item-3 {
+    grid-area: sidebar;
+    justify-self: stretch;
+}
+
+.item-4 {
+    grid-area: footer;
+    /* grid-area: 1 / col4-start / last-line / 6; */
+    align-items: end;
+    justify-items: center;
+}

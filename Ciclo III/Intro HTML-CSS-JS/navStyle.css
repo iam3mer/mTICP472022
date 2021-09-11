@@ -1,0 +1,32 @@
+.nav {
+    display: flex;
+    flex-wrap: row wrap;
+    justify-content: flex-end;
+    list-style: none;
+    margin: 0;
+    background: aqua;
+}
+
+.nav a {
+    text-decoration: none;
+    display: block;
+    padding: 5px;
+    color: blue;
+}
+
+.nav a:hover {
+    background: rgb(91, 180, 118);
+}
+
+@media (max-width: 500px) {
+    .nav {
+        justify-content: center;
+        flex-flow: column wrap;
+    }
+}
+
+@media (max-width: 700px) {
+    .nav {
+        justify-content: flex-start;
+    }
+}
