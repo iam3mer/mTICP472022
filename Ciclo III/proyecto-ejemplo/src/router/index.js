@@ -1,0 +1,32 @@
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+// import Home from '../views/Home.vue'
+import Home from '../views/Home.vue'
+
+Vue.use(VueRouter)
+
+const routes = [
+  {
+    path: '/',
+    name: 'Home',
+    component: Home
+  },
+  {
+    path: '/appCorreo',
+    name: 'Correo',
+    component: () => import('../views/Correo.vue')
+  },
+  {
+    path: '/appInfoTarjeta',
+    name: 'InfoCard',
+    component: () => import('../views/InfoCard.vue')
+  }
+]
+
+const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes
+})
+
+export default router
