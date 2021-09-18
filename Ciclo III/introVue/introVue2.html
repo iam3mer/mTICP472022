@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <!-- <script src="https://unpkg.com/vue@next"></script> -->
+    <title>Intro Vue2</title>
+</head>
+<body>
+
+    <div id="introVue">
+        <p>
+            {{ saludo }}
+        </p>
+        <p>
+            {{ anio }}
+        </p>
+        <span v-html="texto">
+        </span>
+        <p>
+            {{ multiplicacion }}
+        </p>
+        <p v-if="true">
+            {{ 1 > 5 ? "10 es mayor que 5": "10 es menor que 5" }}
+        </p>
+        <p v-else>
+            Soy la parte falsa
+        </p>
+        {{ reversoF() }}
+
+        <a v-bind:href="url" :target="target">Google</a>
+    </div>
+
+    <script src="js/introVue2.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <title>Ejemplos Vue2</title>
+</head>
+<body>
+
+    <br>
+    <div id="contador" class="container card card-body mb-2">
+        Contador: {{ cont }}
+    </div>
+
+    <div id="reverso" class="container card car-body mb-2">
+        <p class="mb-2">
+            {{ mensaje }}
+        </p>
+        <button v-on:click="reverso()" class="btn btn-danger col-3 mb-2" type="button">Revertir</button>
+        <button @click="style()" v-bind:class="stilo">Stilo</button>
+    </div>
+
+    <div id="modelo" class="container card car-body mb-2">
+        <p>{{ mensaje }}</p>
+        <input v-model="mensaje" type="text" class="form-control mb-2">
+        <input v-model="correo" type="mail" class="form-control mb-2" disabled>
+    </div>
+    
+    <div id="lista" class="container card card-body mb-2">
+        <label for="" class="mb-2">Ingrese el elemento</label>
+        <input v-model="inputElemento" @keyup.enter="agregarElemento()" type="text" class="form-control mb-2">
+        <button @click="agregarElemento()" class="btn btn-secondary col-3 mb-2">Agregar</button>
+        <ul class="list-group">
+            <li class="list-group-item" @click="eliminarElemento(indice)" v-for="elemento, indice in elementos">{{ elemento }}</li>
+        </ul>
+    </div>
+    
+    <script src="js/ejemplosVue2.js"></script>
+</body>
+</html>
