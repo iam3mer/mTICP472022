@@ -7,9 +7,9 @@ const router = express.Router();
 // Rutes Books
 router.get('/books', BooksController.getAllBooks);
 router.get('/books/isbn/:isbn', BooksController.getBookByIsbn);
-router.get('/books/title/:titulo', BooksController.getBookByTitulo);
-router.post('/books', BooksController.insert);
-router.put('/books/isbn/:isbn', BooksController.update);
-router.delete('/books/isbn/:isbn', BooksController.delete);
+router.get('/books/title/:titulo', BooksController.getBooksByTitle);
+router.post('/books', BooksController.insertBook);
+router.put('/books/isbn/:isbn', BooksController.updateBook);
+router.delete('/books/isbn/:isbn', BooksController.deleteBook);
 
 module.exports = router;
